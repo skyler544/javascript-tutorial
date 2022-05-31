@@ -3,8 +3,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var canvas = document.getElementById("gameWorld");
   var ctx = canvas.getContext("2d");
 
-  drawShape(ctx, 130, 130, 20, 0, circle);
+  // using functions as arguments, pass which function we
+  // want to use to draw with.
+  drawShape(ctx, 180, 180, 20, 0, circle);
   drawShape(ctx, 30, 40, 50, 20, outlineRectangle);
+  drawShape(ctx, 100, 100, 50, 20, rectangle);
 });
 
 
