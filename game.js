@@ -5,9 +5,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // using functions as arguments, pass which function we
   // want to use to draw with.
-  drawShape(ctx, 180, 180, 20, 0, circle);
-  drawShape(ctx, 30, 40, 50, 20, outlineRectangle);
-  drawShape(ctx, 100, 100, 50, 20, rectangle);
+
+  let x = canvas.width / 2;
+  let y = canvas.height - 30;
+  const dx = 2;
+  const dy = -2;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+    x += dx;
+    y += dy;
+  }
+
+  setInterval(draw, 10);
+  // setInterval(drawShape(ctx, x, y, 10, 0, circle), 10);
 });
 
 
@@ -33,4 +49,6 @@ let circle = function (ctx, posX, posY, radius, startAngle) {
   ctx.arc(posX, posY, radius, startAngle, Math.PI * 2, false);
   ctx.fillStyle = "green";
   ctx.fill();
+  posX += dx;
+  posY += dy;
 }
