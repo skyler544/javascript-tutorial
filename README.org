@@ -1,0 +1,7 @@
+#+title: Readme
+
+* JavaScript Practice
+This repo is where I fiddle around with learning JavaScript.
+
+* Reference
+[[https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript][MDN JavaScript 2D Game Development Tutorial (Pure JavaScript)]]
