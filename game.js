@@ -1,5 +1,6 @@
 // wait until the page ist loaded in order to start the game
 document.addEventListener("DOMContentLoaded", function (event) {
+  console.log(event);
   var canvas = document.getElementById("gameWorld");
   var ctx = canvas.getContext("2d");
 
