@@ -1,24 +1,32 @@
 // wait until the page ist loaded in order to start the game
-document.addEventListener("DOMContentLoaded", function (event) {
-  console.log(event);
-  var canvas = document.getElementById("gameWorld");
-  var ctx = canvas.getContext("2d");
+document.addEventListener("DOMContentLoaded", function () {
+  let canvas = document.getElementById("gameWorld");
+  let ctx = canvas.getContext("2d");
 
   let x = canvas.width / 2;
   let y = canvas.height - 30;
-  const dx = 2;
-  const dy = -2;
+  let dx = 2;
+  let dy = -2;
+  let ballRadius = 10;
 
-  function draw() {
+  let draw = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawShape(ctx, x, y, 10, 0, circle);
+    drawShape(ctx, x, y, ballRadius, 0, circle);
+    wallCollision();
     x += dx;
     y += dy;
   }
 
-  setInterval(draw, 12);
-});
+  let wallCollision = function () {
+    if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
+      dy = -dy;
+    } else if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
+      dx = -dx;
+    }
+  }
 
+  setInterval(draw, 10);
+});
 
 let drawShape = function (ctx, posX, posY, sizeX, sizeY, drawFunction) {
   ctx.beginPath();
