@@ -9,10 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
   let dy = -2;
   let ballRadius = 10;
 
+  let paddleHeight = 10;
+  let paddleWidth = 75;
+  let paddleX = (canvas.width - paddleWidth) / 2;
+
+  let rightPressed = false;
+  let leftPressed = false;
+
   let draw = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawShape(ctx, x, y, ballRadius, 0, circle);
+    drawShape(ctx, paddleX, canvas.height - paddleHeight,
+      paddleWidth, paddleHeight, rectangle);
     wallCollision();
+    paddleMovement();
     x += dx;
     y += dy;
   }
@@ -25,6 +35,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  let paddleMovement = function () {
+    if (rightPressed) {
+      paddleX += 7;
+      if (paddleX + paddleWidth > canvas.width) {
+        paddleX = canvas.width - paddleWidth;
+      }
+    } else if (leftPressed) {
+      paddleX -= 7;
+      if (paddleX < 0) {
+        paddleX = 0;
+      }
+    }
+  }
+
+  let keyDownHandler = function (e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+      rightPressed = true;
+    }
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+      leftPressed = true;
+    }
+  }
+
+  let keyUpHandler = function (e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+      rightPressed = false;
+    }
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+      leftPressed = false;
+    }
+  }
+
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
   setInterval(draw, 10);
 });
 
@@ -36,7 +80,7 @@ let drawShape = function (ctx, posX, posY, sizeX, sizeY, drawFunction) {
 
 let rectangle = function (ctx, posX, posY, sizeX, sizeY) {
   ctx.rect(posX, posY, sizeX, sizeY);
-  ctx.fillStyle = "#FF0000";
+  ctx.fillStyle = "#0095DD";
   ctx.fill();
 }
 
