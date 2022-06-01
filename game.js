@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     y += dy;
   }
 
-  setInterval(draw, 10);
+  setInterval(draw, 12);
 });
 
 
@@ -30,12 +30,6 @@ let rectangle = function (ctx, posX, posY, sizeX, sizeY) {
   ctx.rect(posX, posY, sizeX, sizeY);
   ctx.fillStyle = "#FF0000";
   ctx.fill();
-}
-
-let outlineRectangle = function (ctx, posX, posY, sizeX, sizeY) {
-  ctx.rect(posX, posY, sizeX, sizeY);
-  ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-  ctx.stroke();
 }
 
 let circle = function (ctx, posX, posY, radius, startAngle) {
