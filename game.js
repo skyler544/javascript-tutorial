@@ -3,9 +3,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var canvas = document.getElementById("gameWorld");
   var ctx = canvas.getContext("2d");
 
-  // using functions as arguments, pass which function we
-  // want to use to draw with.
-
   let x = canvas.width / 2;
   let y = canvas.height - 30;
   const dx = 2;
@@ -13,17 +10,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    drawShape(ctx, x, y, 10, 0, circle);
     x += dx;
     y += dy;
   }
 
   setInterval(draw, 10);
-  // setInterval(drawShape(ctx, x, y, 10, 0, circle), 10);
 });
 
 
@@ -47,8 +39,6 @@ let outlineRectangle = function (ctx, posX, posY, sizeX, sizeY) {
 
 let circle = function (ctx, posX, posY, radius, startAngle) {
   ctx.arc(posX, posY, radius, startAngle, Math.PI * 2, false);
-  ctx.fillStyle = "green";
+  ctx.fillStyle = "#0095DD";
   ctx.fill();
-  posX += dx;
-  posY += dy;
 }
