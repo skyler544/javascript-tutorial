@@ -16,8 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
   let rightPressed = false;
   let leftPressed = false;
 
+  let brickRowCount = 3;
+  let brickColumnCount = 5;
+  let brickWidth = 75;
+  let brickHeight = 20;
+  let brickPadding = 10;
+  let brickOffsetTop = 30;
+  let brickOffsetLeft = 30;
+  let bricks = [];
+
   let draw = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
     drawShape(ctx, x, y, ballRadius, 0, circle);
     drawShape(ctx, paddleX, canvas.height - paddleHeight,
       paddleWidth, paddleHeight, rectangle);
@@ -25,6 +35,19 @@ document.addEventListener("DOMContentLoaded", function () {
     paddleMovement();
     x += dx;
     y += dy;
+  }
+
+  let drawBricks = function () {
+    for (let c = 0; c < brickColumnCount; c++) {
+      bricks[c] = [];
+      for (let r = 0; r < brickRowCount; r++) {
+        bricks[c][r] = {
+          x: (c * (brickWidth + brickPadding)) + brickOffsetLeft,
+          y: (r * (brickHeight + brickPadding)) + brickOffsetTop
+        };
+        drawShape(ctx, bricks[c][r].x, bricks[c][r].y, brickWidth, brickHeight, rectangle);
+      }
+    }
   }
 
   let wallCollision = function () {
