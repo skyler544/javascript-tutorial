@@ -28,10 +28,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let wallCollision = function () {
-    if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
+    if (y + dy < ballRadius) {
       dy = -dy;
     } else if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
       dx = -dx;
+    } else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy;
+      } else {
+        alert("Game over!");
+        document.location.reload();
+        clearInterval(interval);
+      }
     }
   }
 
@@ -69,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
-  setInterval(draw, 10);
+  let interval = setInterval(draw, 10);
 });
 
 let drawShape = function (ctx, posX, posY, sizeX, sizeY, drawFunction) {
