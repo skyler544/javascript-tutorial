@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let brickOffsetTop = 30;
   let brickOffsetLeft = 30;
   let bricks = [];
+  let points = 0;
 
   let draw = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -32,31 +33,66 @@ document.addEventListener("DOMContentLoaded", function () {
     drawShape(ctx, paddleX, canvas.height - paddleHeight,
       paddleWidth, paddleHeight, rectangle);
     wallCollision();
+    brickCollision();
     paddleMovement();
     x += dx;
     y += dy;
+    if (points == brickRowCount * brickColumnCount) {
+      alert("you win!");
+    }
   }
 
-  let drawBricks = function () {
+  let initBricks = function () {
     for (let c = 0; c < brickColumnCount; c++) {
       bricks[c] = [];
       for (let r = 0; r < brickRowCount; r++) {
         bricks[c][r] = {
           x: (c * (brickWidth + brickPadding)) + brickOffsetLeft,
-          y: (r * (brickHeight + brickPadding)) + brickOffsetTop
+          y: (r * (brickHeight + brickPadding)) + brickOffsetTop,
+          broken: false
         };
-        drawShape(ctx, bricks[c][r].x, bricks[c][r].y, brickWidth, brickHeight, rectangle);
+      }
+    }
+  }
+
+  let drawBricks = function () {
+    for (let c = 0; c < brickColumnCount; c++) {
+      for (let r = 0; r < brickRowCount; r++) {
+        let currBrick = bricks[c][r];
+        if (!currBrick.broken) {
+          drawShape(ctx, currBrick.x, currBrick.y,
+            brickWidth, brickHeight, rectangle);
+        }
+      }
+    }
+  }
+
+  let brickCollision = function () {
+    for (let c = 0; c < brickColumnCount; c++) {
+      for (let r = 0; r < brickRowCount; r++) {
+        let b = bricks[c][r];
+        if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight && !b.broken) {
+          dy = -dy;
+          b.broken = !b.broken;
+          points++;
+          console.log(points);
+        }
       }
     }
   }
 
   let wallCollision = function () {
+    let leftSide = x + dx < ballRadius;
+    let rightSide = x + dx > canvas.width - ballRadius;
+    let topSide = y + dy > canvas.height - ballRadius;
+    let paddleCollide = x > paddleX && x < paddleX + paddleWidth;
+
     if (y + dy < ballRadius) {
       dy = -dy;
-    } else if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
+    } else if (leftSide || rightSide) {
       dx = -dx;
-    } else if (y + dy > canvas.height - ballRadius) {
-      if (x > paddleX && x < paddleX + paddleWidth) {
+    } else if (topSide) {
+      if (paddleCollide) {
         dy = -dy;
       } else {
         alert("Game over!");
@@ -100,7 +136,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+  initBricks();
   let interval = setInterval(draw, 10);
+  // draw();
 });
 
 let drawShape = function (ctx, posX, posY, sizeX, sizeY, drawFunction) {
