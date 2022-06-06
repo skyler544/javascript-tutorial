@@ -143,16 +143,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  let mouseMoveHandler = function (e) {
-    let relativeX = e.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
-      paddleX = relativeX - paddleWidth / 2;
-    }
-  }
+  // let mouseMoveHandler = function (e) {
+  //   let relativeX = e.clientX - canvas.offsetLeft;
+  //   if (relativeX > 0 && relativeX < canvas.width) {
+  //     paddleX = relativeX - paddleWidth / 2;
+  //   }
+  // }
 
-  // document.addEventListener("keydown", keyDownHandler, false);
-  // document.addEventListener("keyup", keyUpHandler, false);
-  document.addEventListener("mousemove", mouseMoveHandler, false);
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
+  // document.addEventListener("mousemove", mouseMoveHandler, false);
   initBricks();
   let interval = setInterval(draw, 10);
   // draw();
