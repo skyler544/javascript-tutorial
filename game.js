@@ -24,22 +24,31 @@ document.addEventListener("DOMContentLoaded", function () {
   let brickOffsetTop = 30;
   let brickOffsetLeft = 30;
   let bricks = [];
-  let points = 0;
+  let score = 0;
 
   let draw = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (score == brickRowCount * brickColumnCount) {
+      alert("you win!");
+      document.location.reload();
+      clearInterval(interval);
+    }
     drawBricks();
     drawShape(ctx, x, y, ballRadius, 0, circle);
     drawShape(ctx, paddleX, canvas.height - paddleHeight,
       paddleWidth, paddleHeight, rectangle);
+    displayScore();
     wallCollision();
     brickCollision();
     paddleMovement();
     x += dx;
     y += dy;
-    if (points == brickRowCount * brickColumnCount) {
-      alert("you win!");
-    }
+  }
+
+  let displayScore = function () {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: " + score, 8, 20);
   }
 
   let initBricks = function () {
@@ -74,8 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight && !b.broken) {
           dy = -dy;
           b.broken = !b.broken;
-          points++;
-          console.log(points);
+          score++;
+          console.log(score);
         }
       }
     }
