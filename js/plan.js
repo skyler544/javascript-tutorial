@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let c = new Canvas();
-  background = new Img("images/background.png");
+  background = new Img("assets/background.png");
 
   setInterval(draw, 20);
 
