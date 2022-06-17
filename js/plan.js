@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   class Canvas {
-    constructor(width = 0, height = 0) {
+    constructor() {
       this.canvas = document.createElement("canvas");
       this.ctx = this.canvas.getContext("2d");
-      this.canvas.width = width;
-      this.canvas.height = height;
       document.body.appendChild(this.canvas);
     }
   }
@@ -18,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
     constructor() {
       document.addEventListener("keydown", this.keyDownHandler.bind(this), false);
       document.addEventListener("keyup", this.keyUpHandler.bind(this), false);
-    };
+    }
     keyDownHandler(e) {
       this.keysDown[e.keyCode] = true;
-    };
+    }
     keyUpHandler(e) {
       delete this.keysDown[e.keyCode];
-    };
+    }
   }
 
   class Img {
@@ -33,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       this.img = new Image();
       this.img.onload = this.load.bind(this);
       this.img.src = path;
-    };
+    }
     load() {
       this.ready = true;
       this.width = this.img.width;
@@ -74,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
       super(path, 6, 5);
       this.animFrame = 0;
       this.isMoving = 0;
-    };
+    }
     move() {
       if (kh.w in kh.keysDown) {
         this.Y -= this.speed;
@@ -92,13 +90,13 @@ document.addEventListener("DOMContentLoaded", function () {
         this.X += this.speed;
         this.isMoving = 1;
       }
-    };
+    }
     frame(row) {
       let col = this.animFrame % this.colCount;
       this.frameX = this.spriteW * col;
       this.frameY = this.spriteH * row;
-    };
-  };
+    }
+  }
 
   let draw = function () {
     if (background.ready) {
@@ -118,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       player.animFrame++;
     }
-  };
+  }
 
   let c = new Canvas();
   let kh = new KeyHandler();
