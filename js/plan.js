@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // game machinery
   class Canvas {
-    constructor(width, height) {
+    constructor(width = 0, height = 0) {
       this.canvas = document.createElement("canvas");
       this.ctx = this.canvas.getContext("2d");
       this.canvas.width = width;
@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.appendChild(this.canvas);
     }
   }
-
-  let c = new Canvas(512, 480);
 
   class Img {
     constructor(path) {
@@ -28,10 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  background = new Img("background.png");
-
-  // console.log(background.ready);
-
   let draw = function () {
     if (background.ready) {
       c.canvas.width = background.width;
@@ -40,11 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  setInterval(draw, 20);
+  let c = new Canvas();
+  background = new Img("images/background.png");
 
-  // for (let i = 0; i < 2000; i++) {
-  //   draw();
-  // }
+  setInterval(draw, 20);
 
   // game speed variables
 

@@ -1,8 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  let hey = "fool"
-
   let cool = {
     thingOne: "bro",
     thingTwo: "slow",
@@ -39,9 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  let me = new Rect(4, 3);
+  let hey = new Rect(4, 3);
 
-  console.log(me);
-  me.cool();
+  console.log(hey);
+  hey.cool();
 
 });
