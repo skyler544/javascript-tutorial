@@ -1,7 +1,7 @@
 // wait until the page ist loaded in order to start the game
 document.addEventListener("DOMContentLoaded", function () {
   let canvas = document.getElementById("gameWorld");
-  let ctx = canvas.getContext("2d");
+  let context = canvas.getContext("2d");
 
   let x = canvas.width / 2;
   let y = canvas.height - 30;
@@ -27,15 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let score = 0;
 
   let draw = function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     if (score == brickRowCount * brickColumnCount) {
       alert("you win!");
       document.location.reload();
       clearInterval(interval);
     }
     drawBricks();
-    drawShape(ctx, x, y, ballRadius, 0, circle);
-    drawShape(ctx, paddleX, canvas.height - paddleHeight,
+    drawShape(context, x, y, ballRadius, 0, circle);
+    drawShape(context, paddleX, canvas.height - paddleHeight,
       paddleWidth, paddleHeight, rectangle);
     displayScore();
     wallCollision();
@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let displayScore = function () {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
+    context.font = "16px Arial";
+    context.fillStyle = "#0095DD";
+    context.fillText("Score: " + score, 8, 20);
   }
 
   let initBricks = function () {
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       for (let r = 0; r < brickRowCount; r++) {
         let currBrick = bricks[c][r];
         if (!currBrick.broken) {
-          drawShape(ctx, currBrick.x, currBrick.y,
+          drawShape(context, currBrick.x, currBrick.y,
             brickWidth, brickHeight, rectangle);
         }
       }
@@ -158,20 +158,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // draw();
 });
 
-let drawShape = function (ctx, posX, posY, sizeX, sizeY, drawFunction) {
-  ctx.beginPath();
-  drawFunction(ctx, posX, posY, sizeX, sizeY);
-  ctx.closePath();
+let drawShape = function (context, posX, posY, sizeX, sizeY, drawFunction) {
+  context.beginPath();
+  drawFunction(context, posX, posY, sizeX, sizeY);
+  context.closePath();
 }
 
-let rectangle = function (ctx, posX, posY, sizeX, sizeY) {
-  ctx.rect(posX, posY, sizeX, sizeY);
-  ctx.fillStyle = "#0095DD";
-  ctx.fill();
+let rectangle = function (context, posX, posY, sizeX, sizeY) {
+  context.rect(posX, posY, sizeX, sizeY);
+  context.fillStyle = "#0095DD";
+  context.fill();
 }
 
-let circle = function (ctx, posX, posY, radius, startAngle) {
-  ctx.arc(posX, posY, radius, startAngle, Math.PI * 2, false);
-  ctx.fillStyle = "#0095DD";
-  ctx.fill();
+let circle = function (context, posX, posY, radius, startAngle) {
+  context.arc(posX, posY, radius, startAngle, Math.PI * 2, false);
+  context.fillStyle = "#0095DD";
+  context.fill();
 }
