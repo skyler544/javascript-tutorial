@@ -74,21 +74,21 @@ document.addEventListener("DOMContentLoaded", function () {
       this.isMoving = 0;
     }
     move() {
+      if (Object.keys(kh.keysDown).length !== 0) {
+        this.isMoving = 1;
+      }
+
       if (kh.w in kh.keysDown) {
         this.Y -= this.speed;
-        this.isMoving = 1;
       }
       if (kh.a in kh.keysDown) {
         this.X -= this.speed;
-        this.isMoving = 1;
       }
       if (kh.s in kh.keysDown) {
         this.Y += this.speed;
-        this.isMoving = 1;
       }
       if (kh.d in kh.keysDown) {
         this.X += this.speed;
-        this.isMoving = 1;
       }
     }
     frame(row) {
